@@ -8,3 +8,9 @@ public interface IDataBatchProcessor
     Task Start();
     Task Stop();
 }
+public static class HubEventNames
+{
+    public const string ResultReceiver = "receiver";
+    public const string Search = "Search";
+    public const string SendNotification = "SendNotification";
+}

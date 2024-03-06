@@ -1,12 +1,14 @@
-﻿namespace AgriTech.Workers;
+﻿using AgriTech.Contracts.Options;
 
-public class SignalRService(IOptions<EveryEngServiceSettings> everyengSettings, ILogger<SignalRService> logger,
+namespace AgriTech.Workers;
+
+public class SignalRService(IOptions<AgriTechServiceSettings> agriTechSettings, ILogger<SignalRService> logger,
     IDistributedCache distributedCache) : IRealTimeService
 {
-    private const string HubName = "EveryEngUser";
+    private const string HubName = "AgriTechUser";
     private readonly IDistributedCache distributedCache = distributedCache;
 
-    protected readonly IOptions<EveryEngServiceSettings> everyengSettings = everyengSettings;
+    protected readonly IOptions<AgriTechServiceSettings> agriTechSettings = agriTechSettings;
 
     //private string hubName;
     private readonly ILogger logger = logger;
@@ -31,12 +33,7 @@ public class SignalRService(IOptions<EveryEngServiceSettings> everyengSettings, 
         new HubConnectionBuilder().WithUrl(server,
             options =>
             {
-                //options.AccessTokenProvider = async () =>
-                //{
-                //    var userNameKey = $"admin~{everyengSettings.Value.AdminEmail}";
-                //    var token = await distributedCache.GetStringAsync(userNameKey, stoppingToken);
-                //    return token;
-                //};
+              
             })
         .WithAutomaticReconnect()
         .AddMessagePackProtocol()
@@ -47,7 +44,7 @@ public class SignalRService(IOptions<EveryEngServiceSettings> everyengSettings, 
     {
         try
         {
-            var server = $"{everyengSettings.Value.MessengerHubServiceHost}/{HubName}";
+            var server = $"{agriTechSettings.Value.MessengerHubServiceHost}/{HubName}";
             //var server = $"https://localhost:45210/{HubName}";
             connection = await GetHubConnectionBuilder(server, stoppingToken);
             connection.Closed += OnConnection_Closed;

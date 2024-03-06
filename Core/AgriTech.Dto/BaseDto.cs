@@ -1,10 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace AgriTech.Dto;
-public class AgriTechConstants
-{
-    public const string ManagedIdentityId = "ManagedIdentityId";
-}
 public abstract record BaseDto
 {
     private string discriminator;
