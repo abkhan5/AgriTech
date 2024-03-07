@@ -1,7 +1,9 @@
 ﻿using System.IO.Compression;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
-namespace AgriTech.Dto;
+namespace AgriTech;
 
 public static class StringCompression
 {
@@ -95,4 +97,23 @@ public static class StringCompression
     }
 
     public record CompressionValue(string Value, int Size);
+
+    public static string ToJson<T>(this T item) =>
+      JsonSerializer.Serialize(item, new JsonSerializerOptions
+      {
+          ReferenceHandler = ReferenceHandler.IgnoreCycles,
+          PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+          DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+          PropertyNameCaseInsensitive = true,
+      });
+
+
+    public static T FromJson<T>(this string json) =>
+    JsonSerializer.Deserialize<T>(json ?? "", new JsonSerializerOptions
+    {
+        ReferenceHandler = ReferenceHandler.IgnoreCycles,
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        DictionaryKeyPolicy = JsonNamingPolicy.CamelCase,
+        PropertyNameCaseInsensitive = true
+    });
 }

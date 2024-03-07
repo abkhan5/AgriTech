@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AgriTech.Contracts\AgriTech.Contracts.csproj" />
+    <ProjectReference Include="..\..\Core\AgriTech.Dto\AgriTech.Dto.csproj" />
+    <ProjectReference Include="..\..\Core\AgriTech.Extensions\AgriTech.Extensions.csproj" />
+    <ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Cosmosdb\AgriTech.Datalayer.Cosmosdb.csproj" />
+    <ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Redis\AgriTech.Datalayer.Redis.csproj" />
+    <ProjectReference Include="..\..\Services\AgriTech.Service.Authentication\AgriTech.Service.Authentication.csproj" />
+    <ProjectReference Include="..\..\Services\AgriTech.Services.Servicebus\AgriTech.Services.Servicebus.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -9,8 +9,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AgriTech.Dto;
 using AgriTech.Contracts.Options;
+using AgriTech.Extensions;
+using Google.Protobuf.WellKnownTypes;
 
-namespace AgriTech.Extensions;
+namespace AgriTech;
 public static class ProgramExtensions
 {
     internal static string ApplicationName;
@@ -50,23 +52,40 @@ public static class ProgramExtensions
         await app.RunAsync();
     }
 
-    public static async Task RunAgritechHost<T>(this WebApplicationBuilder builder) where T : IAgriTechStartup, new()
+    public static async Task RunAgriTechHost<T>(this WebApplicationBuilder builder) where T : IAgriTechStartup, new()
     {
         Log.Logger.Information($"Current Env is {builder.Environment.EnvironmentName}");
         builder.Host.ConfigureagritechHost();
         var agritechStartup = new T();
         builder.AddWebMetrics(ApplicationName);
         builder.Services.AddAgriTechEngAuthentication(builder.Configuration);
-        builder.Services.AddApplicationInsightsWebTelemetry(builder.Configuration);
+        builder.Services.AddApplicationInsightsWebTelemetry(builder.Configuration);        
+        builder.Services.AddRazorComponents().AddInteractiveServerComponents();
         agritechStartup.ConfigureServices(builder.Services, builder.Configuration);
         builder.Services.AddApiControllers(builder.Configuration);
         builder.Services.AddApplicationProfile();
+
         var app = builder.Build();
         //if (app.Environment.IsDevelopment())
         app.UseOutputCache();
         agritechStartup.ConfigureApplication(app);
         app.MapControllers();
         app.MapPrometheusScrapingEndpoint().AllowAnonymous();
+
+        app.UseHttpsRedirection();
+
+        app.UseStaticFiles();
+        app.UseAntiforgery();
+
+        //app.MapRazorComponents().AddInteractiveServerRenderMode();
+
+        // Configure the HTTP request pipeline.
+        if (!app.Environment.IsDevelopment())
+        {
+            app.UseExceptionHandler("/Error", createScopeForErrors: true);
+            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            app.UseHsts();
+        }
         await app.RunHost();
     }
     private static void AddApplicationProfile(this IServiceCollection services)
