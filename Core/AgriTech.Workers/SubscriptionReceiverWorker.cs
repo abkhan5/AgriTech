@@ -24,7 +24,7 @@ public abstract class SubscriptionReceiverWorker<T> : BackgroundService
         {
             TopicName = topicName,
             SubscriptionName = domain.ToString(),
-            CreatedOn = DateTime.UtcNow,
+            EventOn = DateTime.UtcNow,
             Id = Guid.NewGuid().ToString(),
             ApplicationName = appProfile.ApplicationName,
             AppName = appProfile.AppName,

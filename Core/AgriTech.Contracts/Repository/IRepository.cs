@@ -1,6 +1,9 @@
 ﻿
 
 namespace AgriTech;
+
+
+
 public interface IRepository : IGetRepository, IDeleteRepository, IPatchRepository, IUpdateRepository, ICreateRepository, IBulkRepository
 {
     public const int MaxItemCount = 50;

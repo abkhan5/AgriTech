@@ -26,5 +26,5 @@ public interface IGetRepository
     Task<int> GetTotalCount<TEntity>(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken) where TEntity : BaseDto;
     Task<int> GetTotalCount<TEntity>(CancellationToken cancellationToken) where TEntity : BaseDto;
 
-    Task<decimal> GetSum(string queryFilter, CancellationToken cancellationToken);
+    Task<double> GetSum(string queryFilter, CancellationToken cancellationToken);
 }

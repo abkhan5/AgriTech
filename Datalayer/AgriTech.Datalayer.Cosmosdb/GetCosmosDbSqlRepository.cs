@@ -2,7 +2,7 @@
 
 public partial class CosmosDbSqlRepository : CosmosBaseRepository, IRepository
 {
-    public async Task<decimal> GetSum(string queryFilter, CancellationToken cancellationToken)
+    public async Task<double> GetSum(string queryFilter, CancellationToken cancellationToken)
     {
         var requestOptions = new QueryRequestOptions
         {
@@ -10,7 +10,7 @@ public partial class CosmosDbSqlRepository : CosmosBaseRepository, IRepository
             PopulateIndexMetrics = true,
         };
         var container = await GetCosmosContainer(false, cancellationToken);
-        using FeedIterator<decimal> iterator = container.GetItemQueryIterator<decimal>(new QueryDefinition(queryFilter), requestOptions: requestOptions);
+        using FeedIterator<double> iterator = container.GetItemQueryIterator<double>(new QueryDefinition(queryFilter), requestOptions: requestOptions);
         var countResponse = await iterator.ReadNextAsync(cancellationToken);
         var totalRecords = countResponse.Sum(item => item);
         return totalRecords;

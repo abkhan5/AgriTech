@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\AgriTech.Contracts\AgriTech.Contracts.csproj" />
+		<ProjectReference Include="..\..\Core\AgriTech.Dto\AgriTech.Dto.csproj" />
+		<ProjectReference Include="..\..\Core\AgriTech.Extensions\AgriTech.Extensions.csproj" />
+		<ProjectReference Include="..\..\Core\AgriTech.Workers\AgriTech.Workers.csproj" />
+		<ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Cosmosdb\AgriTech.Datalayer.Cosmosdb.csproj" />
+		<ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Redis\AgriTech.Datalayer.Redis.csproj" />
+		<ProjectReference Include="..\..\Domain\AgriTech.Domain.Sensors\AgriTech.Domain.Sensors.csproj" />
+		<ProjectReference Include="..\..\Services\AgriTech.Service.Authentication\AgriTech.Service.Authentication.csproj" />
+		<ProjectReference Include="..\..\Services\AgriTech.Services.Servicebus\AgriTech.Services.Servicebus.csproj" />
+	</ItemGroup>
+
+</Project>

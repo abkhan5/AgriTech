@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\AgriTech.Contracts\AgriTech.Contracts.csproj" />
+    <ProjectReference Include="..\..\Core\AgriTech.Dto\AgriTech.Dto.csproj" />
+    <ProjectReference Include="..\..\Core\AgriTech.Infrastructure\AgriTech.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Cosmosdb\AgriTech.Datalayer.Cosmosdb.csproj" />
+    <ProjectReference Include="..\..\Datalayer\AgriTech.Datalayer.Redis\AgriTech.Datalayer.Redis.csproj" />
+    <ProjectReference Include="..\..\Services\AgriTech.Services.Servicebus\AgriTech.Services.Servicebus.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CommandHandler\" />
+    <Folder Include="Command\" />
+    <Folder Include="Dto\" />
+    <Folder Include="EventHandlers\" />
+    <Folder Include="Events\" />
+    <Folder Include="Queries\" />
+    <Folder Include="QueryHandler\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
+</Project>

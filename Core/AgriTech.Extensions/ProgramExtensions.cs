@@ -10,7 +10,6 @@ using Microsoft.Extensions.Options;
 using AgriTech.Dto;
 using AgriTech.Contracts.Options;
 using AgriTech.Extensions;
-using Google.Protobuf.WellKnownTypes;
 
 namespace AgriTech;
 public static class ProgramExtensions
@@ -21,7 +20,7 @@ public static class ProgramExtensions
         ApplicationName = appName;
     }
 
-    public static async Task RunConsoleHost<T>(this IHostBuilder builder) where T : IAgriTechStartup, new()
+    public static async Task RunAgriTechConsole<T>(this IHostBuilder builder) where T : IAgriTechStartup, new()
     {
         builder.ConfigureAppConfiguration((hostingContext, config) => GetConfiguration(hostingContext.HostingEnvironment, config));
         builder.ConfigureServices((context, services) =>
@@ -97,9 +96,9 @@ public static class ProgramExtensions
             {
                 Id = ApplicationName,
                 AppName = ApplicationName,
-                UserId = Environment.MachineName,
+                DeviceId = Environment.MachineName,
                 MachineName = Environment.MachineName,
-                CreatedOn = DateTime.UtcNow,
+                EventOn = DateTime.UtcNow,
                 BuildId = appProfile.BuildNumber,
                 ApplicationName = ApplicationName
             };
