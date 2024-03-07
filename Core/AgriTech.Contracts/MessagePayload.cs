@@ -1,4 +1,4 @@
-﻿namespace AgriTech.Contracts;
+﻿namespace AgriTech;
 
 public record MessagePayload<T>
 {

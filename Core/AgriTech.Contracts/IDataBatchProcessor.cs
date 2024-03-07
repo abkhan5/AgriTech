@@ -1,4 +1,4 @@
-﻿namespace AgriTech.Contracts;
+﻿namespace AgriTech;
 public interface IDataBatchProcessor
 {
     Task InitializeChangeFeed<T>(string sourceContainerName, string leaseContainerName, string serviceName,

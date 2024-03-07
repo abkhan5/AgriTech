@@ -9,19 +9,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Processors", "Processors", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A81DADD6-AD0A-4F52-9455-B138F2DE5544}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Dto", "Core\AgriTech.Dto\AgriTech.Dto.csproj", "{80C5FEDA-4C1F-43BE-8104-CEE70E58B9A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Dto", "Core\AgriTech.Dto\AgriTech.Dto.csproj", "{80C5FEDA-4C1F-43BE-8104-CEE70E58B9A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Workers", "Core\AgriTech.Workers\AgriTech.Workers.csproj", "{883DFD71-3436-4ED6-B53C-EA35F39E2735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Workers", "Core\AgriTech.Workers\AgriTech.Workers.csproj", "{883DFD71-3436-4ED6-B53C-EA35F39E2735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Contracts", "Core\AgriTech.Contracts\AgriTech.Contracts.csproj", "{F3AC33CD-4467-4908-9330-B1F308D365DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Contracts", "Core\AgriTech.Contracts\AgriTech.Contracts.csproj", "{F3AC33CD-4467-4908-9330-B1F308D365DE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D54E4B06-0BC8-4EEF-8BB9-448BC944D818}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Services.Servicebus", "Services\AgriTech.Services.Servicebus\AgriTech.Services.Servicebus.csproj", "{36E2E018-7B96-4F1D-A42E-34DE1ABA12EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Services.Servicebus", "Services\AgriTech.Services.Servicebus\AgriTech.Services.Servicebus.csproj", "{36E2E018-7B96-4F1D-A42E-34DE1ABA12EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Extensions", "Core\AgriTech.Extensions\AgriTech.Extensions.csproj", "{401B686B-6E93-4170-BD88-8F0FF1C1FF91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Extensions", "Core\AgriTech.Extensions\AgriTech.Extensions.csproj", "{401B686B-6E93-4170-BD88-8F0FF1C1FF91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Service.Authentication", "Services\AgriTech.Service.Authentication\AgriTech.Service.Authentication.csproj", "{21D2FF8B-8FCD-4341-94E4-2E2E2E922637}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AgriTech.Service.Authentication", "Services\AgriTech.Service.Authentication\AgriTech.Service.Authentication.csproj", "{21D2FF8B-8FCD-4341-94E4-2E2E2E922637}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Datalayer", "Datalayer", "{18C26417-424C-4F95-A247-26EA0DF382B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgriTech.Datalayer.Cosmosdb", "Datalayer\AgriTech.Datalayer.Cosmosdb\AgriTech.Datalayer.Cosmosdb.csproj", "{2B7E0542-7085-491F-A3B1-3DF1D83DBE69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{21D2FF8B-8FCD-4341-94E4-2E2E2E922637}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21D2FF8B-8FCD-4341-94E4-2E2E2E922637}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21D2FF8B-8FCD-4341-94E4-2E2E2E922637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7E0542-7085-491F-A3B1-3DF1D83DBE69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7E0542-7085-491F-A3B1-3DF1D83DBE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7E0542-7085-491F-A3B1-3DF1D83DBE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7E0542-7085-491F-A3B1-3DF1D83DBE69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{36E2E018-7B96-4F1D-A42E-34DE1ABA12EC} = {D54E4B06-0BC8-4EEF-8BB9-448BC944D818}
 		{401B686B-6E93-4170-BD88-8F0FF1C1FF91} = {A81DADD6-AD0A-4F52-9455-B138F2DE5544}
 		{21D2FF8B-8FCD-4341-94E4-2E2E2E922637} = {D54E4B06-0BC8-4EEF-8BB9-448BC944D818}
+		{2B7E0542-7085-491F-A3B1-3DF1D83DBE69} = {18C26417-424C-4F95-A247-26EA0DF382B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {82984F03-CB87-4345-9B71-258FD4694352}

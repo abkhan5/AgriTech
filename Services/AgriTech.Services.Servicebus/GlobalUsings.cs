@@ -1,5 +1,4 @@
-﻿global using AgriTech.Contracts;
-global using Azure.Messaging.ServiceBus.Administration;
+﻿global using Azure.Messaging.ServiceBus.Administration;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.Extensions.Options;
@@ -12,3 +11,4 @@ global using Azure.Core;
 global using Azure.Identity;
 global using AgriTech.Services.Servicebus;
 global using Microsoft.Extensions.Azure;
+global using AgriTech;

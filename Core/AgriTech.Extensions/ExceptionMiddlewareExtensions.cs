@@ -60,7 +60,7 @@ public static class ExceptionMiddlewareExtensions
         httpCode switch
         {
             StatusCodes.Status403Forbidden or StatusCodes.Status410Gone or StatusCodes.Status401Unauthorized
-            => "https://www.everyeng.com",
+            => "https://www.agritech.com",
             _ => "",
         };
 
@@ -73,10 +73,10 @@ public static class ExceptionMiddlewareExtensions
     }
 
 
-    private static Dictionary<string, IEnumerable<string>> FormatValidationException(this Exception everyEngException) =>
+    private static Dictionary<string, IEnumerable<string>> FormatValidationException(this Exception agritechEngException) =>
         new()
         {
-            [""] = new List<string> { everyEngException.Message }
+            [""] = new List<string> { agritechEngException.Message }
         };
 
 

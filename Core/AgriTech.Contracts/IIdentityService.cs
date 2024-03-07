@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace AgriTech.Contracts;
+namespace AgriTech;
 
 public interface IIdentityService
 {
