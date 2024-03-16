@@ -1,0 +1,97 @@
+# The run name: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/run-number?view=azure-devops&tabs=yaml
+name: Mentor-$(Build.SourceBranchName)-$(Date:dd.MM.yyyy)-$(Rev:r)
+parameters:   
+
+- name: Build_All
+  displayName: 'Build All '
+  default: 'true'
+  type: boolean
+- name: Api
+  displayName: 'Build Api'
+  type: boolean
+  default: 'false'
+- name: Job
+  displayName: 'Build Job'
+  type: boolean
+  default: 'false'
+- name: DailyJob
+  displayName: 'Build DailyJob'
+  type: boolean
+  default: 'false'
+  
+
+resources:
+  pipelines:
+  - pipeline: Dev-Trigger
+    source: Dev-Trigger
+    trigger:
+      branches:
+        include:
+        - refs/heads/dev
+        
+trigger:
+  branches:
+    include:
+    - refs/heads/dev
+  paths:
+    include:
+    - EveryEng/Mentor
+    - .azuredevops/pipelines/mentor.yaml   
+    exclude:
+    - k8s
+
+pool:
+  vmImage: ubuntu-latest
+  # we are by default using a microsoft hosted agent with a parameterized default image  
+  #name: EeAgentPool
+
+variables:
+ - template: templates/vars/global.yaml 
+ - template: templates/vars/dev.yaml
+ - template: templates/vars/prod.yaml
+ 
+ 
+#############################################################################
+stages:
+####### Build And Package the Apps into containers #####
+- ${{ if or(eq(parameters.Api, true), eq(parameters.Build_All, true)) }}:
+  - template: templates/stages/build-dev-prod.yaml
+    parameters:
+      ProjectPath: EveryEng/Mentor/EveryEng.Api.Mentor        
+      AppName: mentor
+      SectionName: mentor
+      IsService: true
+      MaxAksAppCount: 3
+      
+      
+     
+      
+ 
+###############################################################################
+
+##########################################################################
+- ${{ if or(eq(parameters.Job, true), eq(parameters.Build_All, true)) }}:
+  - template: templates/stages/build-dev-prod.yaml
+    parameters:
+      ProjectPath: EveryEng/Mentor/EveryEng.Jobs.Mentor        
+      AppName: mentorjob
+      SectionName: mentor
+      
+      
+     
+      
+
+###################################################################################
+
+##########################################################################
+- ${{ if or(eq(parameters.DailyJob, true), eq(parameters.Build_All, true)) }}:
+  - template: templates/stages/build-dev-prod.yaml
+    parameters:
+      ProjectPath: EveryEng/Mentor/EveryEng.Jobs.MentorDaily        
+      AppName: mentordaily
+      SectionName: mentor
+      MaxAksAppCount: 3
+      
+     
+      
+###################################################################################

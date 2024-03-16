@@ -1,0 +1,9 @@
+variables:
+ - name: prodaksADOEnvName
+   value: ee-prod-aks.everyeng
+ - name: prodaksAppNamespace
+   value: everyeng
+ - name: prodappConfigKey
+   value: everyeng-env
+ - name: prodappEnvName
+   value: prod

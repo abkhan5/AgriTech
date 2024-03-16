@@ -1,0 +1,12 @@
+steps:
+- task: qetza.replacetokens.replacetokens-task.replacetokens@5
+  displayName: 'Tokenize Manifest '
+  inputs:
+    rootDirectory: '$(manifestlocation)'
+    targetFiles: '**/*.yaml'
+    verbosity: detailed
+    keepToken: true
+    tokenPattern: custom
+    tokenPrefix: '@{'
+    tokenSuffix: '}@'
+    

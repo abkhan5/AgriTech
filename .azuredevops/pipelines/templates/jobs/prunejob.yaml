@@ -1,0 +1,8 @@
+jobs:
+  - job: 'Prune_Package'
+    displayName: 'Prune all images'
+    condition: succeeded()   
+    workspace:
+      clean: outputs
+    steps:      
+      - template: ../steps/prune-docker-images.yaml

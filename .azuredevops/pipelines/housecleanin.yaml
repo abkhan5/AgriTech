@@ -1,0 +1,21 @@
+# The run name: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/run-number?view=azure-devops&tabs=yaml
+
+name: HK-$(Date:dd.MM.yyyy)
+
+trigger: none
+pool:
+  #vmImage: ubuntu-latest
+  # we are by default using a microsoft hosted agent with a parameterized default image  
+  name: EeAgentPool
+
+schedules:
+  - cron: "0 0 * * *"
+    displayName: Daily build
+    always: true
+    branches:
+      include:
+      - dev
+
+
+stages:
+- template: templates/stages/housekeeping.yaml

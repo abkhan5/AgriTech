@@ -1,0 +1,26 @@
+# https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
+kind: Service
+apiVersion: v1
+metadata:
+  metadata:
+  name: #{aksappname}#
+  labels:
+   app.kubernetes.io/name: #{aksappname}#  
+   app.kubernetes.io/version: "#{Build.BuildId}#"
+   app.kubernetes.io/managed-by: yaml    
+   app.kubernetes.io/component: appsection-#{appsectionname}#
+   app.kubernetes.io/part-of: part-#{apppartname}#
+spec:
+  selector:
+    app: #{aksappname}#
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    name: http
+  - protocol: TCP
+    port: 443
+    targetPort: 443
+    name: ssl  
+  type: LoadBalancer
+---

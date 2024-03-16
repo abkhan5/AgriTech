@@ -1,0 +1,8 @@
+steps:
+- task: qetza.replacetokens.replacetokens-task.replacetokens@5
+  displayName: 'K8S Manifest for $(aksappname)'
+  inputs:
+    rootDirectory: $(aksmanifestpath)
+    targetFiles: '**/*.yaml'
+    verbosity: detailed
+    keepToken: true

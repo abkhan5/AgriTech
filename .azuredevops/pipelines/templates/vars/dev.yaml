@@ -1,0 +1,9 @@
+variables:
+ - name: devaksADOEnvName
+   value: ee-dev-aks.everyeng
+ - name: devaksAppNamespace
+   value: everyeng
+ - name: devappConfigKey
+   value: everyeng-env
+ - name: devappEnvName
+   value: dev

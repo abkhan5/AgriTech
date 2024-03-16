@@ -1,0 +1,50 @@
+parameters:    
+  - name: ProjectPath
+    type: string
+    default: 'UNDEFINED_ProjectPath'  
+  - name: AppName 
+    type: string
+  - name: SectionName 
+    type: string 
+    default: Server 
+  - name: PartName 
+    type: string    
+    default: Server
+  - name: IsService
+    type: boolean
+    default: false
+  - name: IsScaledObject    
+    type: boolean
+    default: false  
+
+  - name: AppCpuRequest
+    type: string
+  - name: AppMemoryRequest
+    type: string
+  - name: PublishHpa
+    type: boolean
+    default: false
+jobs:
+  - job: '${{ parameters.AppName }}_Package'
+    displayName: '${{ parameters.AppName }}'        
+    condition: succeeded()   
+    workspace:
+      clean: all
+    variables:
+     aksappname: '${{ parameters.AppName }}' 
+     appsectionname: ${{ parameters.SectionName }}
+     apppartname: ${{ parameters.PartName }}
+     dockerFilePath: '${{ parameters.ProjectPath }}//Dockerfile'
+     projectFilePath: ${{ parameters.ProjectPath }}     
+     aksappcpu: ${{ parameters.AppCpuRequest }}     
+     aksappmem: ${{ parameters.AppMemoryRequest }}  
+    steps:
+      - template: ../steps/checkout.yaml
+      ######## Creating Manifest for K8 ########      
+      - template: ../steps/publish-manifest.yaml                 
+        parameters:
+            IsScaledObject: ${{ parameters.IsScaledObject }}
+            IsService: ${{ parameters.IsService }}
+     ######## Build Containerize and run ########
+      - template: ../steps/containerize.yaml
+    

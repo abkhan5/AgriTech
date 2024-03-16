@@ -1,0 +1,8 @@
+
+stages:
+- stage: Prune_Images_from_Hetzner
+  dependsOn: []  
+  displayName: Prune Images from Hetzner
+  condition: succeeded()
+  jobs:  
+    - template: ../jobs/prunejob.yaml

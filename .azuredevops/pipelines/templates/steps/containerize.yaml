@@ -1,0 +1,13 @@
+steps:
+- template: ../steps/json-transform.yaml
+- task: Docker@2
+  displayName: 'Build $(dockerFilePath)'
+  condition: succeeded()
+  inputs:
+    containerRegistry: $(acrConnectionName)
+    repository:  $(aksappname)
+    Dockerfile: $(dockerFilePath)
+    buildContext: EveryEng
+    addBaseImageData: false
+    tags: |
+     $(Build.BuildId)

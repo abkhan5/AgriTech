@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+   app.kubernetes.io/name: #{aksappname}#-servicemonitor   
+   app.kubernetes.io/managed-by: yaml    
+   app.kubernetes.io/component: appsection-#{appsectionname}#
+   app.kubernetes.io/part-of: part-#{apppartname}#
+spec:
+  endpoints:
+  - interval: 30s
+    port: https
+    path: /metrics
+  selector:
+    matchLabels:
+      name: #{aksappname}#

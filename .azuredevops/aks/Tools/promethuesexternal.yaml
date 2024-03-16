@@ -1,0 +1,9 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: promserver  
+spec:
+  type: ExternalName
+  externalName: prometheus-server.monitoring.svc.cluster.local
+  ports:
+  - port: 80

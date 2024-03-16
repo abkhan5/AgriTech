@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #{aksappname}#
+  labels:
+    app: everyeng-#{aksappname}#      
+    app.kubernetes.io/name: #{aksappname}#
+    app.kubernetes.io/version: "#{Build.BuildId}#"
+    app.kubernetes.io/managed-by: yaml
+    app.kubernetes.io/component: appsection-#{appsectionname}#
+    app.kubernetes.io/part-of: part-#{apppartname}#
+spec:
+  selector:
+    matchLabels:
+      app: #{aksappname}#
+  replicas: 1
+  revisionHistoryLimit: 2
+  template:
+    metadata:
+      labels:
+       app: #{aksappname}#
+    spec:
+      containers:
+      - name: #{aksappname}#
+        image: #{akscontainerpath}#/#{aksappname}#:#{Build.BuildId}#
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: "ASPNETCORE_FORWARDEDHEADERS_ENABLED"
+          value: "true"
+
+        - name: "UseVault"
+          value: "true"       
+
+        - name: "AzureKeyVaultName"          
+          valueFrom:
+           configMapKeyRef:
+            name: '@{clusterkey}@'
+            key: AzureKeyVaultNameKey
+
+        - name: "TenantId"           
+          valueFrom:
+           configMapKeyRef:
+            name: '@{clusterkey}@'
+            key: TenantIdKey
+
+        - name: "useMachineName"           
+          value: "false"
+
+        - name: "ManagedIdentityId"          
+          valueFrom:
+           configMapKeyRef:
+            name: '@{clusterkey}@'
+            key: ManagedIdentityIdKey
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+      - key: virtual-kubelet.io/provider
+        operator: Exists      
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0

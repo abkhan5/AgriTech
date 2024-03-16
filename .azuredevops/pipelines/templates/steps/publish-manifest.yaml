@@ -1,0 +1,60 @@
+parameters:
+- name: IsScaledObject    
+  type: boolean
+  default: false
+- name: IsService
+  type: boolean
+
+steps:
+
+- ${{ if eq(parameters.IsScaledObject, true)}}:
+    - task: CopyFiles@2
+      displayName: 'Scaling yaml'
+      inputs:
+        SourceFolder: $(aksmanifestpath)
+        Contents: '**/pods-scaledobject.yaml'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+
+- ${{ if eq(parameters.IsService, true)}}:
+    - task: CopyFiles@2
+      displayName: 'Manifest for Service'
+      inputs:
+        SourceFolder: $(aksmanifestpath)
+        Contents: '**/service-clusterip.yaml'            
+        TargetFolder: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+
+- task: CopyFiles@2
+  displayName: 'Manifest for Deployment'
+  inputs:
+    SourceFolder: $(aksmanifestpath)
+    Contents: '**/deploy-pod.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+
+- task: CopyFiles@2
+  displayName: 'Manifest for VPA'
+  inputs:
+    SourceFolder: $(aksmanifestpath)
+    Contents: '**/deploy-vpa.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+
+- task: CopyFiles@2
+  displayName: 'Manifest for Service Monitor'
+  inputs:
+    SourceFolder: $(aksmanifestpath)
+    Contents: '**/service-montor.yaml'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+
+- task: qetza.replacetokens.replacetokens-task.replacetokens@5
+  displayName: 'Tokenize manifest'
+  inputs:
+    rootDirectory: $(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)
+    targetFiles: '**/*.yaml'
+    verbosity: detailed
+    keepToken: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Manifest'
+  inputs:    
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\$(appId)\$(aksappname)'
+    ArtifactName: $(aksappname)
+  condition: succeeded()

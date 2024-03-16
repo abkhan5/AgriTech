@@ -1,0 +1,68 @@
+parameters:
+  - name: AppName 
+    type: string
+  - name: AksAppEnvName
+    type: string
+  - name: AppNamespace
+    type: string
+  - name: ConfigKey
+    type: string
+    default: 'everyeng-env'
+  - name: ProjectPath
+    type: string
+  - name: SectionName 
+    type: string 
+    default: Server 
+  - name: PartName 
+    type: string    
+    default: Server
+  - name: IsService
+    type: boolean
+    default: false
+  - name: IsScaledObject    
+    type: boolean
+    default: false  
+  - name: MaxAksAppCount
+    type: string
+    default: '1'
+  - name: AppCpuRequest
+    type: string
+    default: '20m'
+  - name: AppMemoryRequest
+    type: string
+    default: '500Mi'
+  - name: PublishHpa
+    type: boolean
+    default: false
+  - name: AksAzDevOpsEnvName
+    type: string
+  - name: SelectedEnv
+    type: string
+
+stages:
+- stage: Build_${{ parameters.AppName }}
+  displayName: ${{ parameters.AppName }}
+  dependsOn: []  
+  jobs:  
+    - template: ../jobs/package.yaml
+      parameters:
+        ProjectPath: ${{ parameters.ProjectPath }}
+        AppName: ${{ parameters.AppName }}
+        SectionName: ${{ parameters.SectionName }}
+        IsService: ${{ parameters.IsService }}
+        AppCpuRequest: ${{ parameters.AppCpuRequest }}
+        AppMemoryRequest: ${{ parameters.AppMemoryRequest }}
+        MaxAksAppCount: ${{ parameters.MaxAksAppCount }}
+
+- stage: Deploy_${{ parameters.AppName }}
+  dependsOn:
+    -  Build_${{ parameters.AppName }}
+  displayName:  ${{ parameters.SelectedEnv }}
+  jobs:
+    - template: ../jobs/deploytok8s.yaml
+      parameters:
+        AksAzDevOpsEnvName: ${{ parameters.AksAzDevOpsEnvName }}
+        AksAppName: ${{ parameters.AppName }}
+        AksAppEnvName: ${{ parameters.AksAppEnvName }}
+        AppNamespace: ${{ parameters.AppNamespace }}
+        ConfigKey: ${{ parameters.ConfigKey }}

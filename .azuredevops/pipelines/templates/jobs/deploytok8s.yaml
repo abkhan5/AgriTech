@@ -1,0 +1,47 @@
+parameters:
+  - name: AksAzDevOpsEnvName
+    type: string
+  - name: AksAppName
+    type: string
+  - name: AksAppEnvName
+    type: string
+  - name: AppNamespace
+    type: string
+  - name: ConfigKey
+    type: string
+  - name: MaxAksAppCount
+    type: string
+    default: '1'
+
+jobs:
+  - deployment: Deploy 
+    displayName: '${{ parameters.AksAppName }}' 
+    condition: succeeded()   
+    workspace:
+      clean: all
+    environment: '${{ parameters.AksAzDevOpsEnvName }}' 
+    variables:
+     aksappname: '${{ parameters.AksAppName }}'     
+     aksappcount: ${{ parameters.MaxAksAppCount }}  
+     clusterkey: '${{ parameters.ConfigKey }}'
+     manifestdownload: $(Build.ArtifactStagingDirectory)/$(appId)/${{ parameters.AksAppName }}
+     manifestlocation: $(System.ArtifactsDirectory)/$(appId)/${{ parameters.AksAppName }}
+    strategy:
+     runOnce:
+      deploy:
+        steps:
+        - download: none
+        - task: DownloadPipelineArtifact@2
+          displayName: 'Download manifests'
+          inputs:
+            artifactName: ${{ parameters.AksAppName }}
+            downloadPath: '$(manifestdownload)'  
+        - template: ../steps/tokenize-artifact.yaml
+  
+        - task: KubernetesManifest@0
+          displayName: Deploy Apps ${{ parameters.AksAppName }}
+          inputs:
+            action: deploy
+            namespace: ${{ parameters.AppNamespace }}
+            manifests: $(manifestlocation)/*
+          condition: succeeded()

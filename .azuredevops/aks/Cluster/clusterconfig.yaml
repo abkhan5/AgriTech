@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+   kubernetes.io/description: Containers configs that define an application's environment and essentials to function
+  name: everyeng-env
+data:
+  AksEnvNameKey: "#{aksenvname}#"
+  AzureKeyVaultNameKey: "#{AzureKeyVaultName}#"  
+  AksAppEnvKey: "#{aksappenv}#"
+  TenantIdKey: "#{TenantId}#"
+  UseMachineNameKey:  "#{useMachineName}#"
+  ManagedIdentityIdKey: "#{managedidentityid}#"
+  ApplicationInsightsConnectionStringKey: "#{ApplicationInsightsConnectionString}#"
+---

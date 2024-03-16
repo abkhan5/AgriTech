@@ -1,0 +1,25 @@
+variables:
+ - name: aksmanifestpath
+   value: .azuredevops/aks/manifest
+ - name: acrConnectionName
+   value: EveryEngDevAcrMAS
+ - name: akscontainerpath
+   value: everyengdevacr.azurecr.io
+  
+ - name: aksAzDevOpsEnvName
+   value: ee-dev-aks.everyeng
+ - name: aksDevNamespace
+   value: everyeng
+ - name: devConfigKey
+   value: everyeng-env 
+ - name: DOCKER_BUILDKIT
+   value: 1 
+ 
+ - name: aksAzProdOpsEnvName
+   value: ee-prod-aks.everyeng
+ - name: aksProdNamespace
+   value: everyeng
+ - name: prodConfigKey
+   value: everyeng-env
+ - name: appId 
+   value: $(Build.BuildId)

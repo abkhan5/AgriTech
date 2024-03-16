@@ -1,0 +1,3 @@
+steps:
+- script: docker image prune -a --force --filter "until=24h"
+  displayName: Prune old Docker images

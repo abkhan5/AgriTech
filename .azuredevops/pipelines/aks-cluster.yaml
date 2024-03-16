@@ -1,0 +1,23 @@
+# The run name: https://docs.microsoft.com/en-us/azure/devops/pipelines/process/run-number?view=azure-devops&tabs=yaml
+name: $(Build.SourceBranchName)-$(Date:dd.MM.yyyy)-$(Rev:r)
+
+stages:
+
+####### Build And Package the Apps into containers #####
+- stage: Cluster_Manifest
+  jobs:
+  - job: 'Cluster_Configs' 
+    displayName: 'Upload cluster essentials'
+    steps:
+      - task: CopyFiles@2
+        displayName: 'Copy Files '
+        inputs:
+          SourceFolder: .azuredevops/aks/Cluster
+          Contents: '**/*.yaml'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs: 
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: manifest
+        condition: succeededOrFailed()

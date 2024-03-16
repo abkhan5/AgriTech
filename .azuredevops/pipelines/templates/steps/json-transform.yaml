@@ -1,0 +1,7 @@
+steps:
+- task: qetza.replacetokens.replacetokens-task.replacetokens@5
+  displayName: 'Replace tokens in **/*.json'
+  inputs:
+    rootDirectory: EveryEng/Core/EveryEng.Extensions/
+    targetFiles: '**/*.json'
+    verbosity: detailed

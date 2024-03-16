@@ -1,0 +1,11 @@
+#default checkout task with cleanup of source files and a default depth of 1
+parameters:
+- name: FetchDepth 
+  type: number
+  default: 1
+
+steps:
+- checkout: self
+  clean: true
+  fetchDepth: ${{ parameters.FetchDepth }}
+  displayName: Checkout source

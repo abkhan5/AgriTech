@@ -1,0 +1,71 @@
+parameters:
+  - name: AppName 
+    type: string  
+  - name: ProjectPath
+    type: string
+  - name: SectionName 
+    type: string 
+    default: Server 
+  - name: PartName 
+    type: string    
+    default: Server
+  - name: IsService
+    type: boolean
+    default: false
+  - name: IsScaledObject    
+    type: boolean
+    default: false    
+  - name: AppCpuRequest
+    type: string
+    default: '20m'
+  - name: AppMemoryRequest
+    type: string
+    default: '500Mi'
+  - name: PublishHpa
+    type: boolean
+    default: false
+  - name: MaxAksAppCount
+    type: string
+    default: '1'
+
+stages:
+- stage: Build_${{ parameters.AppName }}
+  displayName: ${{ parameters.AppName }}
+  dependsOn: []  
+  jobs:  
+    - template: ../jobs/package.yaml
+      parameters:
+        ProjectPath: ${{ parameters.ProjectPath }}
+        AppName: ${{ parameters.AppName }}
+        SectionName: ${{ parameters.SectionName }}
+        IsService: ${{ parameters.IsService }}
+        AppCpuRequest: ${{ parameters.AppCpuRequest }}
+        AppMemoryRequest: ${{ parameters.AppMemoryRequest }}
+        
+
+- stage: Deploy_Dev_${{ parameters.AppName }}
+  dependsOn:
+    -  Build_${{ parameters.AppName }}
+  displayName:  Dev
+  jobs:
+    - template: ../jobs/deploytok8s.yaml
+      parameters:
+        AksAzDevOpsEnvName: $(devaksADOEnvName)
+        AksAppName: ${{ parameters.AppName }}
+        AksAppEnvName: $(devappEnvName)
+        AppNamespace: $(devaksAppNamespace)
+        ConfigKey: $(devappConfigKey)
+
+- stage: Deploy_Prod_${{ parameters.AppName }}
+  dependsOn:
+    -  Deploy_Dev_${{ parameters.AppName }}
+  displayName:  Prod
+  jobs:
+    - template: ../jobs/deploytok8s.yaml
+      parameters:
+        AksAzDevOpsEnvName: $(prodaksADOEnvName)
+        AksAppName: ${{ parameters.AppName }}
+        AksAppEnvName: $(prodappEnvName)
+        AppNamespace: $(prodaksAppNamespace)
+        ConfigKey: $(prodappConfigKey)
+        MaxAksAppCount:  ${{ parameters.MaxAksAppCount }}
