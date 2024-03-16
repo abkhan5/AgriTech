@@ -2,24 +2,24 @@ variables:
  - name: aksmanifestpath
    value: .azuredevops/aks/manifest
  - name: acrConnectionName
-   value: EveryEngDevAcrMAS
+   value: agritechDevAcrMAS
  - name: akscontainerpath
-   value: everyengdevacr.azurecr.io
+   value: agritechdevacr.azurecr.io
   
  - name: aksAzDevOpsEnvName
-   value: ee-dev-aks.everyeng
+   value: ee-dev-aks.agritech
  - name: aksDevNamespace
-   value: everyeng
+   value: agritech
  - name: devConfigKey
-   value: everyeng-env 
+   value: agritech-env 
  - name: DOCKER_BUILDKIT
    value: 1 
  
  - name: aksAzProdOpsEnvName
-   value: ee-prod-aks.everyeng
+   value: ee-prod-aks.agritech
  - name: aksProdNamespace
-   value: everyeng
+   value: agritech
  - name: prodConfigKey
-   value: everyeng-env
+   value: agritech-env
  - name: appId 
    value: $(Build.BuildId)

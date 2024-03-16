@@ -1,9 +1,9 @@
 variables:
  - name: devaksADOEnvName
-   value: ee-staging-aks.everyeng
+   value: ee-staging-aks.agritech
  - name: devaksAppNamespace
-   value: everyeng
+   value: agritech
  - name: devappConfigKey
-   value: everyeng-env
+   value: agritech-env
  - name: devappEnvName
    value: dev

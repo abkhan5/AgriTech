@@ -1,9 +1,9 @@
 variables:
  - name: prodaksADOEnvName
-   value: ee-prod-aks.everyeng
+   value: ee-prod-aks.agritech
  - name: prodaksAppNamespace
-   value: everyeng
+   value: agritech
  - name: prodappConfigKey
-   value: everyeng-env
+   value: agritech-env
  - name: prodappEnvName
    value: prod
